@@ -1,26 +1,142 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+  深夜競技感：近黑冷調底、單一血紅強調色（取自首屏影像的車衣）。
+  這是刻意單一主題的設計，不提供淺色模式。
+*/
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display-stack);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-display-stack);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  color-scheme: dark;
+
+  --background: oklch(0.155 0.007 250);
+  --foreground: oklch(0.965 0.002 250);
+  --card: oklch(0.202 0.008 250);
+  --card-foreground: oklch(0.965 0.002 250);
+  --popover: oklch(0.202 0.008 250);
+  --popover-foreground: oklch(0.965 0.002 250);
+
+  /* 血紅：取樣自首屏騎士的車衣，是全站唯一的強調色。 */
+  --primary: oklch(0.582 0.192 22);
+  --primary-foreground: oklch(0.985 0.002 250);
+
+  --secondary: oklch(0.245 0.008 250);
+  --secondary-foreground: oklch(0.965 0.002 250);
+  --muted: oklch(0.235 0.008 250);
+  --muted-foreground: oklch(0.685 0.008 250);
+  --accent: oklch(0.245 0.008 250);
+  --accent-foreground: oklch(0.965 0.002 250);
+  --destructive: oklch(0.62 0.2 25);
+
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--primary);
+
+  --radius: 0.25rem;
+
+  /* 拉丁字用 Archivo（含寬度軸），中文交給系統字：零下載、在 macOS/iOS 上是蘋方。 */
+  --font-cjk: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Heiti TC",
+    sans-serif;
+  --font-body: var(--font-archivo), var(--font-cjk);
+  --font-display-stack: var(--font-archivo), var(--font-cjk);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply font-sans;
+    /* 平滑捲動由 Lenis 接管，關掉原生的以免打架。 */
+    scroll-behavior: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility display-tight {
+  font-family: var(--font-display-stack);
+  font-weight: 800;
+  /* Archivo 的寬度軸：壓窄成海報標題的比例。中文字不受影響。 */
+  font-stretch: 82%;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* 進場動畫：尊重 prefers-reduced-motion，關掉時直接顯示、不位移。 */
+@layer components {
+  .reveal {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(1.25rem);
+      transition:
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal[data-visible="true"] {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
