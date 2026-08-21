@@ -31,7 +31,7 @@ export function About() {
           <Reveal delay={120} className="relative aspect-4/3 overflow-hidden rounded-xs lg:aspect-3/4">
             <Image
               src="/img/pair.webp"
-              alt="兩位騎士並排騎在林道公路上"
+              alt="社員在霧中的山路獨自爬坡"
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
               className="object-cover"

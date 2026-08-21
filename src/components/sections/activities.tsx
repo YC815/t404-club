@@ -42,7 +42,7 @@ export function Activities() {
         >
           <Image
             src="/img/drivetrain.webp"
-            alt="公路車傳動系統與前輪的特寫"
+            alt="一整排公路車在夜裡停靠河濱欄杆"
             fill
             sizes="100vw"
             className="object-cover"
