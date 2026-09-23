@@ -9,7 +9,7 @@ export function About() {
       id="about"
       className="scroll-mt-16 bg-hivis px-5 pt-28 pb-20 text-ink sm:px-10 sm:pt-36 sm:pb-28 lg:px-16"
     >
-      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
+      <div className="mx-auto max-w-7xl">
         <div>
           <p className="inline-block rounded-full bg-ink px-4 py-1.5 text-sm font-bold text-paper sm:text-base">
             {club.shortName}
@@ -23,12 +23,12 @@ export function About() {
           <JoinButton tone="ink" className="mt-10" />
         </div>
 
-        <div className="relative aspect-4/5 overflow-hidden rounded-2xl">
+        <div className="relative mt-14 aspect-4/3 overflow-hidden rounded-2xl sm:aspect-16/9">
           <Image
             src="/img/pair.webp"
-            alt="社員在霧中的山路獨自爬坡"
+            alt="社員穿著車衣在廟前拉布條的大合照"
             fill
-            sizes="(max-width: 1024px) 100vw, 40vw"
+            sizes="(max-width: 1280px) 100vw, 1280px"
             loading="eager"
             fetchPriority="high"
             className="object-cover"
