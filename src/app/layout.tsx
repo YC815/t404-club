@@ -1,16 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Geist_Mono } from "next/font/google";
+import { Archivo, Geist_Mono, Noto_Sans_TC } from "next/font/google";
 
-import { SmoothScroll } from "@/components/smooth-scroll";
 import { club } from "@/content/site";
 import "./globals.css";
 
-// 只載拉丁字。中文交給系統字（見 globals.css 的 --font-cjk），省下數 MB 的思源黑體。
 const archivo = Archivo({
   subsets: ["latin"],
   axes: ["wdth"],
   variable: "--font-archivo",
   display: "swap",
+});
+
+// 只給標題用的 Black 一個字重。Google 依 unicode-range 切片，瀏覽器只抓頁面上出現的字。
+const notoTC = Noto_Sans_TC({
+  weight: "900",
+  subsets: ["latin"],
+  variable: "--font-noto-tc",
+  display: "swap",
+  preload: false,
 });
 
 const geistMono = Geist_Mono({
@@ -42,24 +49,23 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0d1013",
-  colorScheme: "dark",
+  themeColor: "#f7f5ef",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="zh-Hant-TW"
-      className={`${archivo.variable} ${geistMono.variable} h-full`}
+      className={`${archivo.variable} ${notoTC.variable} ${geistMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xs focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
         >
           跳到主要內容
         </a>
-        <SmoothScroll />
         {children}
       </body>
     </html>

@@ -1,36 +1,43 @@
 import Image from "next/image";
 
 import { Reveal } from "@/components/reveal";
-import { SectionHeading } from "@/components/section-heading";
 import { activities } from "@/content/site";
+
+const tones = [
+  "bg-primary text-primary-foreground",
+  "bg-ink text-paper",
+  "bg-card text-ink",
+];
 
 export function Activities() {
   return (
     <section
       id="activities"
-      className="scroll-mt-20 border-t border-border px-6 py-24 sm:px-10 sm:py-32 lg:px-16"
+      className="scroll-mt-16 px-5 py-20 sm:px-10 sm:py-28 lg:px-16"
     >
       <div className="mx-auto max-w-7xl">
-        <SectionHeading
-          index="WHAT WE DO"
-          title="我們平常在幹嘛"
-          lead="固定在做的就這三件事。"
-        />
+        <Reveal>
+          <h2 className="display-tight text-[clamp(2.5rem,7vw,5.5rem)]">
+            平常在騎什麼
+          </h2>
+        </Reveal>
 
-        <ul className="mt-16 grid gap-px overflow-hidden rounded-xs border border-border bg-border sm:grid-cols-3">
+        <ul className="mt-12 grid gap-4 sm:grid-cols-3">
           {activities.map((item, i) => (
             <Reveal
               as="li"
               key={item.title}
               delay={i * 70}
-              className="flex flex-col gap-4 bg-background p-8 sm:p-10"
+              className={`flex aspect-square flex-col justify-between rounded-2xl p-7 sm:aspect-auto sm:min-h-80 lg:aspect-square ${tones[i % tones.length]}`}
             >
-              <span className="label-mono">{item.tag}</span>
-              <h3 className="display-tight text-2xl sm:text-3xl">
-                {item.title}
-              </h3>
-              <p className="text-base leading-relaxed text-muted-foreground">
-                {item.body}
+              <p className="text-xl font-bold sm:text-2xl">{item.title}</p>
+              <p>
+                <span className="display-tight block text-[clamp(4rem,9vw,7rem)] leading-none">
+                  {item.stat}
+                </span>
+                <span className="mt-2 block text-lg font-bold opacity-80">
+                  {item.unit}
+                </span>
               </p>
             </Reveal>
           ))}
@@ -38,7 +45,7 @@ export function Activities() {
 
         <Reveal
           delay={120}
-          className="relative mt-12 aspect-21/9 overflow-hidden rounded-xs"
+          className="relative mt-4 aspect-4/3 overflow-hidden rounded-2xl sm:aspect-21/9"
         >
           <Image
             src="/img/drivetrain.webp"
@@ -47,11 +54,7 @@ export function Activities() {
             sizes="100vw"
             className="object-cover"
           />
-          <div
-            className="absolute inset-0 bg-gradient-to-r from-background via-background/20 to-transparent"
-            aria-hidden="true"
-          />
-          <p className="display-tight absolute bottom-6 left-6 max-w-md text-xl sm:bottom-10 sm:left-10 sm:text-3xl">
+          <p className="display-tight absolute bottom-4 left-4 rounded-xl bg-paper px-5 py-4 text-[clamp(1.5rem,3.5vw,2.75rem)] text-ink sm:bottom-8 sm:left-8 sm:px-7 sm:py-5">
             一個人騎會停。
             <br />
             一群人騎不會。

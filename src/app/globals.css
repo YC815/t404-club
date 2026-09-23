@@ -3,8 +3,8 @@
 @import "shadcn/tailwind.css";
 
 /*
-  深夜競技感：近黑冷調底、單一血紅強調色（取自首屏影像的車衣）。
-  這是刻意單一主題的設計，不提供淺色模式。
+  扁平海報感：暖白紙底、墨黑字、兩個純色——車衣紅、螢光黃綠（取自社員車衣）。
+  不用漸層、不用細框分格；區塊之間靠整片色塊切換。
 */
 
 @theme inline {
@@ -26,6 +26,9 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-hivis: var(--hivis);
 
   --font-sans: var(--font-body);
   --font-display: var(--font-display-stack);
@@ -40,38 +43,41 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  --background: oklch(0.155 0.007 250);
-  --foreground: oklch(0.965 0.002 250);
-  --card: oklch(0.202 0.008 250);
-  --card-foreground: oklch(0.965 0.002 250);
-  --popover: oklch(0.202 0.008 250);
-  --popover-foreground: oklch(0.965 0.002 250);
+  --ink: oklch(0.18 0.012 260);
+  --paper: oklch(0.975 0.008 85);
+  --hivis: oklch(0.91 0.2 118);
 
-  /* 血紅：取樣自首屏騎士的車衣，是全站唯一的強調色。 */
-  --primary: oklch(0.582 0.192 22);
-  --primary-foreground: oklch(0.985 0.002 250);
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: oklch(0.94 0.012 85);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
 
-  --secondary: oklch(0.245 0.008 250);
-  --secondary-foreground: oklch(0.965 0.002 250);
-  --muted: oklch(0.235 0.008 250);
-  --muted-foreground: oklch(0.685 0.008 250);
-  --accent: oklch(0.245 0.008 250);
-  --accent-foreground: oklch(0.965 0.002 250);
-  --destructive: oklch(0.62 0.2 25);
+  --primary: oklch(0.6 0.225 27);
+  --primary-foreground: oklch(0.99 0.004 85);
 
-  --border: oklch(1 0 0 / 11%);
-  --input: oklch(1 0 0 / 15%);
+  --secondary: oklch(0.93 0.012 85);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.93 0.012 85);
+  --muted-foreground: oklch(0.42 0.012 260);
+  --accent: var(--hivis);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.58 0.22 27);
+
+  --border: oklch(0.18 0.012 260 / 14%);
+  --input: oklch(0.18 0.012 260 / 20%);
   --ring: var(--primary);
 
-  --radius: 0.25rem;
+  --radius: 1rem;
 
-  /* 拉丁字用 Archivo（含寬度軸），中文交給系統字：零下載、在 macOS/iOS 上是蘋方。 */
+  /* 拉丁字用 Archivo；中文標題用 Noto Sans TC Black（Google 依字碼切片，只下載用到的字），內文交給系統字。 */
   --font-cjk: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Heiti TC",
     sans-serif;
   --font-body: var(--font-archivo), var(--font-cjk);
-  --font-display-stack: var(--font-archivo), var(--font-cjk);
+  --font-display-stack: var(--font-archivo), var(--font-noto-tc), var(--font-cjk);
 }
 
 @layer base {
@@ -81,8 +87,6 @@
 
   html {
     @apply font-sans;
-    /* 平滑捲動由 Lenis 接管，關掉原生的以免打架。 */
-    scroll-behavior: auto;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -104,19 +108,19 @@
 
 @utility display-tight {
   font-family: var(--font-display-stack);
-  font-weight: 800;
+  font-weight: 900;
   /* Archivo 的寬度軸：壓窄成海報標題的比例。中文字不受影響。 */
-  font-stretch: 82%;
+  font-stretch: 80%;
   letter-spacing: -0.02em;
-  line-height: 0.95;
+  line-height: 1.02;
 }
 
 @utility label-mono {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--muted-foreground);
 }
 
 /* 進場動畫：尊重 prefers-reduced-motion，關掉時直接顯示、不位移。 */

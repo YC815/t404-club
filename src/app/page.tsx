@@ -1,4 +1,3 @@
-import { ScrollSequence } from "@/components/scroll-sequence";
 import { About } from "@/components/sections/about";
 import { Activities } from "@/components/sections/activities";
 import { FaqSection } from "@/components/sections/faq-section";
@@ -13,7 +12,6 @@ export default function Home() {
     <>
       <SiteHeader />
       <main id="main" className="flex-1">
-        <ScrollSequence />
         <About />
         <Activities />
         <Gallery />

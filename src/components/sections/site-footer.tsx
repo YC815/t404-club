@@ -4,24 +4,18 @@ import { club, links } from "@/content/site";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border px-6 py-14 sm:px-10 lg:px-16">
-      <div className="mx-auto flex max-w-7xl flex-col gap-10 md:flex-row md:items-end md:justify-between">
+    <footer className="bg-ink px-5 py-12 text-paper sm:px-10 lg:px-16">
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="display-tight text-2xl">{club.name}</p>
-          <p className="label-mono mt-2">{club.englishName}</p>
+          <p className="display-tight text-2xl">{club.shortName}</p>
+          <p className="label-mono mt-2 text-paper/60">{club.englishName}</p>
         </div>
 
-        <div className="flex flex-col gap-3 text-sm text-muted-foreground md:items-end">
-          <Link
-            href="/charter"
-            className="transition-colors hover:text-foreground"
-          >
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-bold">
+          <Link href="/charter" className="hover:text-hivis">
             組織章程
           </Link>
-          <a
-            href={`mailto:${links.email}`}
-            className="transition-colors hover:text-foreground"
-          >
+          <a href={`mailto:${links.email}`} className="hover:text-hivis">
             {links.email}
           </a>
           {links.instagram ? (
@@ -29,18 +23,13 @@ export function SiteFooter() {
               href={links.instagram}
               target="_blank"
               rel="noreferrer"
-              className="transition-colors hover:text-foreground"
+              className="hover:text-hivis"
             >
               Instagram
             </a>
           ) : null}
         </div>
       </div>
-
-      <p className="mx-auto mt-12 max-w-7xl text-xs text-muted-foreground">
-        首屏與內頁影像取自 Pexels，依 Pexels License 使用，出處記錄於
-        <code className="mx-1 font-mono">public/frames/CREDITS.md</code>。
-      </p>
     </footer>
   );
 }
